@@ -17,7 +17,6 @@
     "test.types": "tsc -p ./src/tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@babel/cli": "^8.0.4",
     "@babel/core": "^8.0.1",
     "@babel/plugin-transform-class-properties": "^8.0.1",
     "@babel/plugin-transform-export-namespace-from": "^8.0.1",
@@ -37,12 +36,10 @@
     "babel-plugin-add-module-exports": "^1.0.4"
   },
   "devDependencies": {
-    "@babel/cli": "^8.0.4",
     "@babel/core": "^8.0.1",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "@babel/cli": "^8",
     "@babel/core": "^8"
   },
   "keywords": [
