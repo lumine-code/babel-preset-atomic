@@ -140,7 +140,7 @@ module.exports = (_api: ConfigAPI, options: Options, _dirname: string): InputOpt
 
   const presets = [
     [
-      require("@babel/preset-env") as typeof import("babel__preset-env"),
+      require("@babel/preset-env") as PresetItem,
       {
         targets,
         modules: keepModules ? false : "commonjs",
