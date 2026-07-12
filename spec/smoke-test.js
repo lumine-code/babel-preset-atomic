@@ -25,3 +25,16 @@ const Example = moduleUnderTest.exports
 
 assert.equal(new Example().read(null), 1)
 assert.equal(new Example().read({ value: 2 }), 2)
+
+const jsxSource = `
+  /** @babel */
+  /** @jsx etch.dom */
+  const view = <div className="settings-view" />;
+`
+
+const { code: jsxCode } = babel.transformSync(jsxSource, {
+  filename: "settings-view.js",
+  presets: [[preset, { keepModules: false, flow: false, typescript: false }]],
+})
+
+assert.match(jsxCode, /etch\.dom\("div"/)

@@ -150,7 +150,12 @@ module.exports = (_api: ConfigAPI, options: Options, _dirname: string): InputOpt
 
   if (react !== false) {
     const presetReact = require("@babel/preset-react")
-    presets.push(typeof react === "object" ? [presetReact, react] : presetReact)
+    // Atom packages still use per-file @jsx pragmas (for example, Etch's
+    // `/** @jsx etch.dom */`). Babel 8 defaults to the automatic runtime,
+    // which rejects those pragmas, so retain the preset's legacy behavior.
+    presets.push(
+      typeof react === "object" ? [presetReact, react] : [presetReact, { runtime: "classic" }],
+    )
   }
 
   if (flow !== false) {
