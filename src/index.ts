@@ -1,4 +1,4 @@
-import type { ConfigAPI, PluginItem, TransformOptions } from "@babel/core"
+import type { ConfigAPI, InputOptions, PluginAPI, PluginItem, PresetItem } from "@babel/core"
 
 let keepModulesEnv = false // false by default
 
@@ -7,7 +7,7 @@ if (process.env.BABEL_KEEP_MODULES === "true") {
 }
 
 export type Options = {
-  targets?: typeof import("babel__preset-env")
+  targets?: InputOptions["targets"]
   keepModules?: boolean
   addModuleExports?: boolean
   addModuleExportsDefaultProperty?: boolean
@@ -33,10 +33,10 @@ function handleOptions(options: Options) {
     notStrictCommentTriggers,
   } = options
 
-  // use Electron 11 targets by default
+  // Use Lumine's Electron runtime as the default target.
   if (targets === undefined) {
     targets = {
-      electron: 11,
+      electron: "43",
     }
   }
 
@@ -91,8 +91,40 @@ function handleOptions(options: Options) {
   }
 }
 
+function transformNotStrict({ types }: PluginAPI) {
+  return {
+    name: "transform-not-strict",
+    visitor: {
+      Directive(path: any, state: any) {
+        if (path.node.value.value !== "use strict") return
+        if (state.opts.removeAll) {
+          path.node.value.value = "not strict"
+          return
+        }
+
+        for (const sibling of path.container) {
+          if (
+            types.isDirective(sibling) &&
+            (sibling.value.value === "not strict" ||
+              state.opts.directiveTriggers?.includes(sibling.value.value))
+          ) {
+            path.remove()
+            return
+          }
+
+          const comments = [...(sibling.leadingComments ?? []), ...(sibling.trailingComments ?? [])]
+          if (comments.some((comment) => state.opts.commentTriggers?.includes(comment.value.trim()))) {
+            path.remove()
+            return
+          }
+        }
+      },
+    },
+  }
+}
+
 // eslint-disable-next-line no-unused-vars
-module.exports = (_api: ConfigAPI, options: Options, _dirname: string): TransformOptions => {
+module.exports = (_api: ConfigAPI, options: Options, _dirname: string): InputOptions => {
   const {
     targets,
     keepModules,
@@ -114,7 +146,7 @@ module.exports = (_api: ConfigAPI, options: Options, _dirname: string): Transfor
         modules: keepModules ? false : "commonjs",
       },
     ],
-  ] as PluginItem[]
+  ] as PresetItem[]
 
   if (react !== false) {
     const presetReact = require("@babel/preset-react")
@@ -132,34 +164,19 @@ module.exports = (_api: ConfigAPI, options: Options, _dirname: string): Transfor
   }
 
   const plugins = [
-    require("@babel/plugin-proposal-function-bind"),
-
-    require("@babel/plugin-proposal-export-default-from"),
-    require("@babel/plugin-proposal-logical-assignment-operators"),
-    [require("@babel/plugin-proposal-optional-chaining"), { loose: false }],
-    [require("@babel/plugin-proposal-pipeline-operator"), { proposal: "minimal" }],
-    [require("@babel/plugin-proposal-nullish-coalescing-operator"), { loose: false }],
-    require("@babel/plugin-proposal-do-expressions"),
-
-    [require("@babel/plugin-proposal-decorators"), { legacy: true }],
-    require("@babel/plugin-proposal-function-sent"),
-    require("@babel/plugin-proposal-export-namespace-from"),
-    require("@babel/plugin-proposal-numeric-separator"),
-    require("@babel/plugin-proposal-throw-expressions"),
-
-    require("@babel/plugin-syntax-import-meta"),
-    [require("@babel/plugin-proposal-class-properties"), { loose: true }],
-    [require("@babel/plugin-proposal-private-methods"), { loose: true }],
-    [require("@babel/plugin-proposal-private-property-in-object"), { loose: true }], // #38
-    require("@babel/plugin-proposal-json-strings"),
-
-    // compile time code generation
-    require("babel-plugin-codegen"),
-    require("babel-plugin-preval"),
+    require("@babel/plugin-transform-logical-assignment-operators"),
+    require("@babel/plugin-transform-optional-chaining"),
+    require("@babel/plugin-transform-nullish-coalescing-operator"),
+    require("@babel/plugin-transform-export-namespace-from"),
+    require("@babel/plugin-transform-numeric-separator"),
+    require("@babel/plugin-transform-class-properties"),
+    require("@babel/plugin-transform-private-methods"),
+    require("@babel/plugin-transform-private-property-in-object"), // #38
+    require("@babel/plugin-transform-json-strings"),
 
     // not strict
     [
-      require("babel-plugin-transform-not-strict"),
+      transformNotStrict,
       {
         removeAll: removeAllUseStrict,
         directiveTriggers: notStrictDirectiveTriggers,
@@ -173,21 +190,22 @@ module.exports = (_api: ConfigAPI, options: Options, _dirname: string): Transfor
 
   // transform modules (e.g when without Rollup)
   if (!keepModules) {
-    plugins.push(
-      ...[require("@babel/plugin-transform-modules-commonjs"), require("@babel/plugin-syntax-dynamic-import")]
-    )
+    plugins.push(require("@babel/plugin-transform-modules-commonjs"))
 
     if (addModuleExports) {
-      plugins.push(
-        ...[
-          [require("babel-plugin-add-module-exports"), { addDefaultProperty: addModuleExportsDefaultProperty }], // atom needs this
-        ]
-      )
+      plugins.push([
+        require("babel-plugin-add-module-exports"),
+        { addDefaultProperty: addModuleExportsDefaultProperty },
+      ] as PluginItem) // Atom needs this.
     }
   }
 
   return {
     presets,
     plugins,
+    assumptions: {
+      setPublicClassFields: true,
+      privateFieldsAsProperties: true,
+    },
   }
 }
