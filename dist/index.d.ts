@@ -1,4 +1,5 @@
-import type { InputOptions } from "@babel/core";
+import type { InputOptions } from "@babel/core" with { "resolution-mode": "require"
+};
 export type Options = {
     targets?: InputOptions["targets"];
     keepModules?: boolean;

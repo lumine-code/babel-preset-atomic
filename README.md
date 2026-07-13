@@ -14,25 +14,12 @@ Provides the Babel configuration used to transpile Lumine packages.
 npm install --save-dev @lumine-code/babel-preset
 ```
 
-<details>
-<summary> This package also needs `@babel/core` and/or `@babel/cli`. </summary>
-
-If using `npm`, the bundled babel is hoisted automatically.
-
-If using `pnpm`, either add the following to your `.npmrc` to hoist the prettier bundled with the config
+This preset requires `@babel/core` as a peer dependency. Install `@babel/cli`
+alongside it when invoking Babel from the command line:
 
 ```
-public-hoist-pattern[]=*
+npm install --save-dev @babel/core @babel/cli
 ```
-
-Or install these yourself in your `devDependencies`.
-
-```
-pnpm install -save-dev "@babel/core"
-pnpm install -save-dev "@babel/cli"
-```
-
-</details>
 
 ## Usage
 

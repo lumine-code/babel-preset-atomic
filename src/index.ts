@@ -1,4 +1,6 @@
-import type { ConfigAPI, InputOptions, PluginAPI, PluginItem, PresetItem } from "@babel/core"
+import type { ConfigAPI, InputOptions, PluginAPI, PluginItem, PresetItem } from "@babel/core" with {
+  "resolution-mode": "require",
+}
 
 let keepModulesEnv = false // false by default
 

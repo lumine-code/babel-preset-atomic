@@ -6,6 +6,10 @@
   "homepage": "https://github.com/lumine-code/babel-preset",
   "repository": "https://github.com/lumine-code/babel-preset",
   "bugs": "https://github.com/lumine-code/babel-preset/issues",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "npm@11.16.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -41,8 +45,8 @@
   },
   "devDependencies": {
     "@babel/core": "^8.0.1",
-    "@types/node": "^24.0.0",
-    "typescript": "^5.0.0"
+    "@types/node": "^24.13.3",
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
     "@babel/core": "^8"
