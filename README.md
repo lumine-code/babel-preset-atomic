@@ -1,6 +1,12 @@
 # @lumine-code/babel-preset
 
-This package contains the Babel configuration used for JavaScript packages in Lumine.
+Provides the Babel configuration used to transpile Lumine packages.
+
+## Features
+
+- **Modern syntax**: configures Babel transforms for JavaScript, JSX, Flow, and TypeScript.
+- **Legacy packages**: preserves decorators, CommonJS output, and opt-in non-strict package syntax.
+- **Configurable output**: exposes options for module transforms, targets, TypeScript, and React behavior.
 
 ## Installation
 
@@ -141,7 +147,7 @@ let presets = [
 
 3. `addModuleExports`:
 
-Allows to `require` a ES6 module that has exported a single thing as `default`, in a ES5 fashion without `require().default`. This is `true` by default for backward compatibility with Atom packages.
+Allows an ES module with a single default export to be loaded from CommonJS without `require().default`. This is `true` by default for compatibility with legacy packages.
 
 ```json
 {
@@ -256,3 +262,7 @@ It has the preset that automatically adds default export for older Node versions
 It has the plugin for removing `'use strict'`:
 
 - `"babel-plugin-transform-not-strict"`
+
+## Contributing
+
+Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub. Any feedback is welcome!

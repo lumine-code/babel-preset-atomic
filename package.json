@@ -1,12 +1,15 @@
 {
   "name": "@lumine-code/babel-preset",
+  "author": "lumine-code",
   "version": "6.0.0",
-  "description": "Babel configuration used by Lumine packages",
+  "description": "Provides the Babel configuration used to transpile Lumine packages.",
   "homepage": "https://github.com/lumine-code/babel-preset-atomic",
   "repository": "https://github.com/lumine-code/babel-preset-atomic",
   "bugs": "https://github.com/lumine-code/babel-preset-atomic/issues",
   "license": "MIT",
-  "author": "Amin Yahyaabadi",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "files": [
     "dist",
