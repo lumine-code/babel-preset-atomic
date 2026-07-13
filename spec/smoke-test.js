@@ -38,3 +38,24 @@ const { code: jsxCode } = babel.transformSync(jsxSource, {
 })
 
 assert.match(jsxCode, /etch\.dom\("div"/)
+
+const decoratorSource = `
+  function observer(target) {
+    target.observed = true;
+  }
+
+  @observer
+  class Display {}
+
+  module.exports = Display;
+`
+
+const { code: decoratorCode } = babel.transformSync(decoratorSource, {
+  filename: "display.js",
+  presets: [[preset, { keepModules: false, flow: false, typescript: false }]],
+})
+
+assert.doesNotMatch(decoratorCode, /@observer/)
+const decoratedModule = { exports: {} }
+Function("module", "exports", decoratorCode)(decoratedModule, decoratedModule.exports)
+assert.equal(decoratedModule.exports.observed, true)

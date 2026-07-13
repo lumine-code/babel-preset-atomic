@@ -174,6 +174,9 @@ module.exports = (_api: ConfigAPI, options: Options, _dirname: string): InputOpt
     require("@babel/plugin-transform-nullish-coalescing-operator"),
     require("@babel/plugin-transform-export-namespace-from"),
     require("@babel/plugin-transform-numeric-separator"),
+    // Legacy decorators must run before the class-properties transform so
+    // that decorated fields (e.g. MobX's @observable in Hydrogen) compile.
+    [require("@babel/plugin-proposal-decorators"), { version: "legacy" }],
     require("@babel/plugin-transform-class-properties"),
     require("@babel/plugin-transform-private-methods"),
     require("@babel/plugin-transform-private-property-in-object"), // #38

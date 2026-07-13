@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@babel/core':
-        specifier: ^8.0.1
-        version: 8.0.1
+      '@babel/plugin-proposal-decorators':
+        specifier: ^8.0.2
+        version: 8.0.2(@babel/core@8.0.1)
       '@babel/plugin-transform-class-properties':
         specifier: ^8.0.1
         version: 8.0.1(@babel/core@8.0.1)
@@ -60,6 +60,9 @@ importers:
         specifier: ^1.0.4
         version: 1.0.4
     devDependencies:
+      '@babel/core':
+        specifier: ^8.0.1
+        version: 8.0.1
       typescript:
         specifier: ^5.0.0
         version: 5.9.3
@@ -209,6 +212,18 @@ packages:
 
   '@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly@8.0.1':
     resolution: {integrity: sha512-P8+RN2n7ts2s1vnE+lXdHYf+dhnmcGSen/kWzBsVluT9Sey5AqmcRXYWlHqgQxaNlKTD5YMa1tf5z4d1v8W88w==}
+    engines: {node: ^22.18.0 || >=24.11.0}
+    peerDependencies:
+      '@babel/core': ^8.0.0
+
+  '@babel/plugin-proposal-decorators@8.0.2':
+    resolution: {integrity: sha512-+C6O6KKXU7BBq1GNaIkFJxrALUVGRcr+WeWm4OcuRl3h+l/CmNfcTLMrT2Lm3uvGBimBH/8pEBRrXJFLoO67Gg==}
+    engines: {node: ^22.18.0 || >=24.11.0}
+    peerDependencies:
+      '@babel/core': ^8.0.0
+
+  '@babel/plugin-syntax-decorators@8.0.1':
+    resolution: {integrity: sha512-NI+0S/6MvR6GlcQFwjDZ+WIc2qvG6TXN534lYs9llNldwW4b7Dh6KTtk030FA0xWdYGs4t1lWo+OEWN8wGB+Nw==}
     engines: {node: ^22.18.0 || >=24.11.0}
     peerDependencies:
       '@babel/core': ^8.0.0
@@ -934,6 +949,18 @@ snapshots:
       '@babel/plugin-transform-optional-chaining': 8.0.1(@babel/core@8.0.1)
 
   '@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly@8.0.1(@babel/core@8.0.1)':
+    dependencies:
+      '@babel/core': 8.0.1
+      '@babel/helper-plugin-utils': 8.0.1(@babel/core@8.0.1)
+
+  '@babel/plugin-proposal-decorators@8.0.2(@babel/core@8.0.1)':
+    dependencies:
+      '@babel/core': 8.0.1
+      '@babel/helper-create-class-features-plugin': 8.0.1(@babel/core@8.0.1)
+      '@babel/helper-plugin-utils': 8.0.1(@babel/core@8.0.1)
+      '@babel/plugin-syntax-decorators': 8.0.1(@babel/core@8.0.1)
+
+  '@babel/plugin-syntax-decorators@8.0.1(@babel/core@8.0.1)':
     dependencies:
       '@babel/core': 8.0.1
       '@babel/helper-plugin-utils': 8.0.1(@babel/core@8.0.1)
