@@ -83,7 +83,7 @@ To permanently set this option, you can add it to your babel config (which disab
 {
   "presets": [
     [
-      "babel-preset-atomic",
+      "@lumine-code/babel-preset",
       {
         "keepModules": true,
       },
@@ -98,7 +98,7 @@ To permanently set this option, you can add it to your babel config (which disab
 ```js
 let presets = [
   [
-    "babel-preset-atomic",
+    "@lumine-code/babel-preset",
     {
       keepModules: true,
     },
@@ -116,7 +116,7 @@ To change the target of `preset-env` plugin. By default this is configured for E
 {
   "presets": [
     [
-      "babel-preset-atomic",
+      "@lumine-code/babel-preset",
       {
         "targets": {
           "electron": 9
@@ -133,7 +133,7 @@ To change the target of `preset-env` plugin. By default this is configured for E
 ```js
 let presets = [
   [
-    "babel-preset-atomic",
+    "@lumine-code/babel-preset",
     {
       targets: {
         electron: 9,
@@ -153,7 +153,7 @@ Allows an ES module with a single default export to be loaded from CommonJS with
 {
   "presets": [
     [
-      "babel-preset-atomic",
+      "@lumine-code/babel-preset",
       {
         "addModuleExports": false
       }
@@ -168,7 +168,7 @@ Allows an ES module with a single default export to be loaded from CommonJS with
 ```js
 let presets = [
   [
-    "babel-preset-atomic",
+    "@lumine-code/babel-preset",
     {
       addModuleExports: false,
     },
@@ -184,7 +184,7 @@ let presets = [
 {
   "presets": [
     [
-      "babel-preset-atomic",
+      "@lumine-code/babel-preset",
       {
         "addModuleExports": true,
         "addModuleExportsDefaultProperty": true
@@ -200,7 +200,7 @@ let presets = [
 ```js
 let presets = [
   [
-    "babel-preset-atomic",
+    "@lumine-code/babel-preset",
     {
       addModuleExports: true,
       addModuleExportsDefaultProperty: true,
