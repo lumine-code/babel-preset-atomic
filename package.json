@@ -3,9 +3,9 @@
   "author": "lumine-code",
   "version": "6.0.0",
   "description": "Provides the Babel configuration used to transpile Lumine packages.",
-  "homepage": "https://github.com/lumine-code/babel-preset-atomic",
-  "repository": "https://github.com/lumine-code/babel-preset-atomic",
-  "bugs": "https://github.com/lumine-code/babel-preset-atomic/issues",
+  "homepage": "https://github.com/lumine-code/babel-preset",
+  "repository": "https://github.com/lumine-code/babel-preset",
+  "bugs": "https://github.com/lumine-code/babel-preset/issues",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@babel/core": "^8.0.1",
+    "@types/node": "^24.0.0",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
