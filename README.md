@@ -1,11 +1,11 @@
-# babel-preset-atomic
+# @lumine-code/babel-preset
 
-This includes the babel configuration used for JavaScript packages in atom-ide-community.
+This package contains the Babel configuration used for JavaScript packages in Lumine.
 
 ## Installation
 
 ```
-npm install --save-dev babel-preset-atomic
+npm install --save-dev @lumine-code/babel-preset
 ```
 
 <details>
@@ -34,7 +34,7 @@ Create a `babel.config.json` file at the root of the project with the following 
 
 ```json
 {
-  "presets": ["babel-preset-atomic"],
+  "presets": ["@lumine-code/babel-preset"],
   "plugins": [],
   "exclude": "node_modules/**",
   "sourceMap": "inline"
@@ -47,7 +47,7 @@ Use `babel.config.js` if you need more control over the config.
 <summary>babel.config.js version</summary>
 
 ```js
-let presets = ["babel-preset-atomic"]
+let presets = ["@lumine-code/babel-preset"]
 
 let plugins = []
 
