@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build": "tsc -p ./src/tsconfig.json",
-    "test": "npm run build && node spec/smoke-test.js",
+    "test": "npm run build && jasmine",
     "test.types": "tsc -p ./src/tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -46,6 +46,7 @@
   "devDependencies": {
     "@babel/core": "^8.0.1",
     "@types/node": "^24.13.3",
+    "jasmine": "^6.3.0",
     "typescript": "^7.0.2"
   },
   "peerDependencies": {
